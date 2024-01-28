@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import css from './phonebook.module.css';
 import { nanoid } from 'nanoid';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
+import ContactForm from './ContactForm.jsx';
+import ContactList from './ContactList.jsx';
+import Filter from './Filter.jsx';
 
 export class App extends Component {
   state = {
@@ -11,12 +11,8 @@ export class App extends Component {
     filter: '',
   };
 
-  handleSubmit = event => {
-    //zatrzymuje domyślną akcję przeglądarki, czyli przesłanie formularza i przeładowanie strony
-    event.preventDefault();
-
-    //pobieram nazwę nowego kontaktu i aktualną lista kontaktów
-    const { name, contacts, number } = this.props;
+  handleSubmit = contact => {
+    const { name, number } = contact;
 
     // Sprawdzanie, czy nazwa nowego kontaktu nie jest pusta - zabezpiecza przed dodaniem pustego pola
     if (name.trim() === '') return;
@@ -27,7 +23,7 @@ export class App extends Component {
     };
     this.setState({
       //stan aplikacji jest aktualizowany poprzez dodanie nowego kontaktu do listy kontaktów za pomocą spread operatora
-      contacts: [...contacts, newContact],
+      contacts: [this.state.contacts, newContact],
       //wartość nazwy jest resetowana do pustego ciągu, aby wyczyścić pole wejściowe
       name: '',
       number: '',
@@ -41,15 +37,10 @@ export class App extends Component {
           <h1>Phonebook</h1>
           <ContactForm
             contacts={this.state.contacts}
-            handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
           />
           <h2>Contacts</h2>
-          <Filter
-            filter={this.state.filter}
-            handleFilterChange={this.handleFilterChange}
-            contacts={this.state.contacts}
-          />
+          <Filter filter={this.state.filter} contacts={this.state.contacts} />
           <ContactList contacts={this.state.contacts} />
         </div>
       </div>

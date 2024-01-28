@@ -8,6 +8,19 @@ class ContactForm extends Component {
     number: '',
   };
 
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+
+    const {name, number} = this.state;
+
+    //przekazuję dane do App.jsx (komponentu nadrzędnego)
+    this.props.handleSubmit({ name, number }); 
+
+    //reset state'u komponentu ContactForm
+    this.setState({ name:'', number: ''}); 
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value, //name w tym przypadku to atrybut, a nie wartość
@@ -34,7 +47,7 @@ class ContactForm extends Component {
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
               value={name}
-              onChange={this.props.handleChange}
+              onChange={this.handleChange}
             />
           </label>
           <p>Number:</p>
@@ -46,7 +59,7 @@ class ContactForm extends Component {
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required
               value={number}
-              onChange={this.props.handleChange}
+              onChange={this.handleChange}
             />
           </label>
           <button className={css['submit-button']} type="submit" method='POST'>
