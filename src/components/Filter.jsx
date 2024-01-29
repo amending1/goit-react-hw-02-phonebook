@@ -1,12 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Filter = ({ filter, handleFilterChange, contacts }) => {
-
-  //.includes(filter) sprawdza, czy nazwa kontaktu zawiera podany ciąg znaków, który jest przechowywany w stanie jako filter. Jeśli tak, zwraca true, co oznacza, że kontakt zostanie zachowany
- const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter)
-  );
-
+const Filter = ({ filter, handleFilterChange }) => {
   return (
     <div>
       <p>Find contacts by name:</p>
@@ -16,15 +11,13 @@ const Filter = ({ filter, handleFilterChange, contacts }) => {
         value={filter}
         onChange={handleFilterChange}
       ></input>
-      <ul>
-          {filteredContacts.map(contact => (
-            <li key={contact.id}>
-              {contact.name}: {contact.number}
-            </li>
-          ))}
-        </ul>
     </div>
   );
+};
+
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  handleFilterChange: PropTypes.func.isRequired
 };
 
 export default Filter;

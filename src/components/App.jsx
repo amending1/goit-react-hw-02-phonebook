@@ -54,6 +54,13 @@ export class App extends Component {
     });
   };
  
+
+    //.includes(filter) sprawdza, czy nazwa kontaktu zawiera podany ciąg znaków, który jest przechowywany w stanie jako filter. Jeśli tak, zwraca true, co oznacza, że kontakt zostanie zachowany
+ filteredContacts = () => {
+  const {contacts, filter } = this.state;
+  return contacts.filter(contact =>
+  contact.name.toLowerCase().includes(filter)
+)};
  
 
   render() {
@@ -66,8 +73,8 @@ export class App extends Component {
             handleSubmit={this.handleSubmit}
           />
           <h2>Contacts</h2>
-          <Filter filter={this.state.filter} contacts={this.state.contacts}  handleFilterChange={this.handleFilterChange} />
-          <ContactList contacts={this.state.contacts} onDeleteContact={this.handleDeleteContact} />
+          <Filter filter={this.state.filter} handleFilterChange={this.handleFilterChange} />
+          <ContactList contacts={this.filteredContacts()} onDeleteContact={this.handleDeleteContact}/>
         </div>
       </div>
     );

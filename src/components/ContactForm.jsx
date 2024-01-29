@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import css from './phonebook.module.css';
+import PropTypes from 'prop-types';
 
 class ContactForm extends Component {
   state = {
@@ -68,5 +69,9 @@ class ContactForm extends Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 export default ContactForm;
