@@ -2,16 +2,10 @@ import React from 'react';
 
 const Filter = ({ filter, handleFilterChange, contacts }) => {
 
-    handleFilterChange = event => {
-        this.setState({
-          filter: event.target.value.toLowerCase(),
-        });
-      };
-     
-     //.includes(filter) sprawdza, czy nazwa kontaktu zawiera podany ciąg znaków, który jest przechowywany w stanie jako filter. Jeśli tak, zwraca true, co oznacza, że kontakt zostanie zachowany
-     const filteredContacts = contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter)
-      );
+  //.includes(filter) sprawdza, czy nazwa kontaktu zawiera podany ciąg znaków, który jest przechowywany w stanie jako filter. Jeśli tak, zwraca true, co oznacza, że kontakt zostanie zachowany
+ const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter)
+  );
 
   return (
     <div>

@@ -34,7 +34,7 @@ class ContactForm extends Component {
       <div>
         <form
           className={css['form-container']}
-          onSubmit={this.props.handleSubmit}
+          onSubmit={this.handleFormSubmit}
         >
           <p>Name:</p>
           <label>

@@ -23,12 +23,20 @@ export class App extends Component {
     };
     this.setState({
       //stan aplikacji jest aktualizowany poprzez dodanie nowego kontaktu do listy kontaktów za pomocą spread operatora
-      contacts: [this.state.contacts, newContact],
+      contacts: [...this.state.contacts, newContact],
       //wartość nazwy jest resetowana do pustego ciągu, aby wyczyścić pole wejściowe
       name: '',
       number: '',
     });
   };
+
+  handleFilterChange = event => {
+    this.setState({
+      filter: event.target.value.toLowerCase(),
+    });
+  };
+ 
+ 
 
   render() {
     return (
@@ -40,7 +48,7 @@ export class App extends Component {
             handleSubmit={this.handleSubmit}
           />
           <h2>Contacts</h2>
-          <Filter filter={this.state.filter} contacts={this.state.contacts} />
+          <Filter filter={this.state.filter} contacts={this.state.contacts}  handleFilterChange={this.handleFilterChange} />
           <ContactList contacts={this.state.contacts} />
         </div>
       </div>
