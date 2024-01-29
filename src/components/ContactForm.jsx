@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import css from './phonebook.module.css';
-import { nanoid } from 'nanoid';
 
 class ContactForm extends Component {
   state = {
@@ -8,18 +7,17 @@ class ContactForm extends Component {
     number: '',
   };
 
-
   handleFormSubmit = event => {
     event.preventDefault();
 
-    const {name, number} = this.state;
+    const { name, number } = this.state;
 
     //przekazuję dane do App.jsx (komponentu nadrzędnego)
-    this.props.handleSubmit({ name, number }); 
+    this.props.handleSubmit({ name, number });
 
     //reset state'u komponentu ContactForm
-    this.setState({ name:'', number: ''}); 
-  }
+    this.setState({ name: '', number: '' });
+  };
 
   handleChange = event => {
     this.setState({
@@ -62,7 +60,7 @@ class ContactForm extends Component {
               onChange={this.handleChange}
             />
           </label>
-          <button className={css['submit-button']} type="submit" method='POST'>
+          <button className={css['submit-button']} type="submit" method="POST">
             Add contact
           </button>
         </form>
