@@ -16,6 +16,16 @@ export class App extends Component {
 
     // Sprawdzanie, czy nazwa nowego kontaktu nie jest pusta - zabezpiecza przed dodaniem pustego pola
     if (name.trim() === '') return;
+
+
+    //Metoda some() sprawdza, czy co najmniej jeden element tablicy spełnia warunek opisany przez callback (metoda zwroci 'true' lub 'false')
+    const isExistingContact = this.state.contacts.some( existingContact => existingContact.name.toLowerCase() === name.toLowerCase());
+
+    if (isExistingContact) {
+      alert(`Contact '${name}' already exists in the phonebook!`);
+      return;
+    }
+
     const newContact = {
       name,
       number,
@@ -28,6 +38,14 @@ export class App extends Component {
       name: '',
       number: '',
     });
+  };
+
+
+  //Za pomocą metody 'filter' na tablicy prevState.contacts, usuwamy z tablicy ten kontakt, którego 'id' odpowiada 'id' przekazanemu do metody 'handleDeleteContact'. Metoda 'filter' tworzy nową tablicę zawierającą tylko te elementy, które spełniają warunek podany w funkcji zwrotnej. W tym przypadku, usuwamy kontakt o 'id' równym 'id', które chcemy usunąć.
+  handleDeleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
   };
 
   handleFilterChange = event => {
@@ -49,7 +67,7 @@ export class App extends Component {
           />
           <h2>Contacts</h2>
           <Filter filter={this.state.filter} contacts={this.state.contacts}  handleFilterChange={this.handleFilterChange} />
-          <ContactList contacts={this.state.contacts} />
+          <ContactList contacts={this.state.contacts} onDeleteContact={this.handleDeleteContact} />
         </div>
       </div>
     );
